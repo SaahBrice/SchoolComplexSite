@@ -1,0 +1,155 @@
+{% extends "base/principal.html" %}
+
+{% block main_content %}
+
+<div class="row">
+        <div class="col-md-12">
+          <div class="card card-success mt-3">
+            <div class="card-header">
+              <h3 class="card-title">Edit student</h3>
+            </div>
+            <div class="card-body bg-light p-5 shadow">
+              <div class="">
+                </div>
+                <div class="">
+                  <div id="logins-part" class="" role="tabpanel" aria-labelledby="logins-part-trigger">
+                        {% if messages %}
+                        <div class="form-group">
+                          <div class="col-12">
+                            {% for message in messages %}
+                              {% if message.tags == "error" %}
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                  {{ message }}
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                              {% elif message.tags == "success" %}
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                  {{ message }}
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                              {% endif %}
+                            {% endfor %}
+                          </div>
+                        </div>
+                      {% endif %}
+                    <form class="" action="edit_student_save" method="post" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class="form-group">
+                        <input type="hidden"  class="form-control bg-light" id="First name" value="{{student.id}}" name="student_id">
+                        <label for="Firstname">First name</label>
+                        <input class="form-control bg-light" id="First name" placeholder="{{student.admin.first_name}}" name="firstname">
+                      </div>
+                      <div class="form-group">
+                        <label for="Last name">Last name</label>
+                        <input class="form-control bg-light" id="Last name" placeholder="{{student.admin.last_name}}" name="lastname">
+                      </div>
+                      <div class="form-group">
+                        <label for="Last name">User name</label>
+                        <input class="form-control bg-light" id="Last name" placeholder="{{student.admin.username}}" name="username">
+                      </div>
+                      <div class="form-group">
+                        <label for="subject">Select gender</label><br>
+                        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                          {% if student.gender == "male" %}
+                            <input type="radio" class="btn-check px-5" id="btncheck9" autocomplete="off" value="male" name="gender" checked>
+                            <label class="btn btn-outline-info px-5" for="btncheck9">Male</label>
+
+                            <input type="radio" class="btn-check mx-2 px-5" id="btncheck10" autocomplete="off" value="female" name="gender">
+                            <label class="btn btn-outline-warning mx-2 px-5" for="btncheck10">Female</label>
+                          {% else %}
+                            <input type="radio" class="btn-check px-5" id="btncheck9" autocomplete="off" value="male" name="gender">
+                            <label class="btn btn-outline-info px-5" for="btncheck9">Male</label>
+
+                            <input type="radio" class="btn-check mx-2 px-5" id="btncheck10" autocomplete="off" value="female" name="gender" checked>
+                            <label class="btn btn-outline-warning mx-2 px-5" for="btncheck10">Female</label>
+                          {% endif %}
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="Phone2">Parent's name </label>
+                        <input class="form-control bg-light" id="Phone2" placeholder="{{student.parent_name}}" name="parent_name">
+                      </div>
+                      <div class="form-group">
+                        <label for="Phone1">Parent's Phone number 1</label>
+                        <input class="form-control bg-light" id="Phone1" placeholder="{{student.phone1}}" name="phone1">
+                      </div>
+                      <div class="form-group">
+                        <label for="Phone2">Parent's number 2</label>
+                        <input class="form-control bg-light" id="Phone2" placeholder="{{student.phone2}}" name="phone2">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Parent's Email address</label>
+                        <input type="email" class="form-control bg-light" id="exampleInputEmail1" placeholder="{{student.admin.email}}" name="email">
+                      </div>
+                      <div class="form-group">
+                        <label for="address">Parent's Address</label>
+                        <input class="form-control bg-light" id="address" placeholder="{{student.address}}" name="address">
+                      </div>
+                      <div class="form-group">
+                        <label for="class">Select Class</label> <br>
+                        {% for classe in classes %}
+                          {% if student.classs.name == classe.name %}
+                            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                              <input type="radio" class="btn-check" id="{{classe.name}}" autocomplete="off" value="{{classe.id}}" name="class" checked>
+                              <label class="btn btn-outline-success mx-2" for="{{classe.name}}">{{classe.name}}</label>
+                            </div>
+                          {% endif %}
+                            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                              <input type="radio" class="btn-check" id="{{classe.name}}" autocomplete="off" value="{{classe.id}}" name="class">
+                              <label class="btn btn-outline-success mx-2" for="{{classe.name}}">{{classe.name}}</label>
+                            </div>
+                        {% endfor %}
+                      </div>
+                      <div class="form-group">
+                        <label for="class">Select academic year</label> <br>
+                        {% for academicYear in academicYears %}
+                          {% if student.academic_year.start_year == academicYear.start_year %}
+                            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                              <input type="radio" class="btn-check" id="{{academicYear.start_year}}" autocomplete="off" value="{{academicYear.id}}"name="academic_year" checked>
+                              <label class="btn btn-outline-success mx-2" for="{{academicYear.start_year}}">{{academicYear.start_year}} </label>
+                            </div>
+                          {% endif %}
+                            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                              <input type="radio" class="btn-check" id="{{academicYear.start_year}}" autocomplete="off" value="{{academicYear.id}}"name="academic_year" >
+                              <label class="btn btn-outline-success mx-2" for="{{academicYear.start_year}}">{{academicYear.start_year}} </label>
+                            </div>
+                        {% endfor %}
+                      </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="subject">Previous school</label>
+                        <input class="form-control bg-light" id="Phone1" placeholder="{{student.previous_school}}" name="previous_school">
+                      </div>
+                      <div class="form-group">
+                        <label for="subject">Any health related issue?</label>
+                        <input class="form-control bg-light" id="Phone1" placeholder="{{student.health}}" name="health">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputFile">Profile Picture</label>
+                        <div class="input-group">
+                          <div class="custom-file">
+                            <label class="custom-file-label bg-light" for="exampleInputFile">Choose file</label>
+                            <input type="file" class="custom-file-input bg-light" id="exampleInputFile" name="myfile">
+                          </div>
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-success">Save</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+              Cross-check the Student's Credentials
+            </div>
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+
+{% endblock main_content  %}

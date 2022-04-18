@@ -1,0 +1,118 @@
+{% extends "base/principal.html" %}
+
+{% block main_content %}
+
+<a class="btn btn-outline-primary btn-sm mt-5 px-3 mx-5 mb-3" href=" {% url 'add_student' %} "><i class="fas fa-user-plus"></i>  Add Student</a>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                        {% if messages %}
+                        <div class="form-group">
+                          <div class="col-12">
+                            {% for message in messages %}
+                              {% if message.tags == "error" %}
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                  {{ message }}
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                              {% elif message.tags == "success" %}
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                  {{ message }}
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                              {% endif %}
+                            {% endfor %}
+                          </div>
+                        </div>
+                      {% endif %}
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header bg-lime">
+        <h3 class="card-title">Student List</h3>
+        <div class="card-tools">
+          <div class="input-group input-group-sm" style="width: 250px;">
+            <input type="text" name="table_search" class="form-control float-right" id="mySInput" placeholder="Search">
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-default">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+              <!-- /.card-header -->
+      <div class="card-body table-responsive p-0 bg-light shadow-lg" style="height: 400px;">
+        <table class="table text-nowrap table-hover bg-primary shadow-lg">
+          <thead class="text-light ">
+            <tr class="bg-light">
+              <th>ID</th>
+              <th>Names</th>
+              <th>Parent's Name</th>
+              <th>Phone</th>
+              <th>Address</th>
+              <th>Profile</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody class="bg-light shadow" id="mySTable">
+            {% for student in students %}
+              {% if student.admin.is_active %}
+                <tr>
+                  <td>{{student.id}}</td>
+                  <td>{{student.admin.username}}</td>
+                  <td>{{student.parent_name}}</td>
+                  <td>{{student.phone1}}/{{student.phone2}}</td>
+                  <td>{{student.address}}</td>
+                  <td> <img src="{{student.profile_pic}}" class="img-circle pull-xs-left" alt="..." height="70px" width="70px"></td>
+                  <td>
+                    <a class="btn bg-gradient-primary btn-sm" href="view_student/{{student.id}}"> view </a>
+                    <a class="btn bg-gradient-info btn-sm mx-1" href="edit_student/{{student.id}}"> Edit </a>
+                    <a class="btn bg-gradient-danger btn-sm mx-1" href="delete_student/{{student.id}}"> Deactivate </a>
+                  </td>
+                </tr>
+              {% else %}
+                <tr class="bg-gray disabled">
+                  <td>{{student.id}}</td>
+                  <td>{{student.admin.username}}</td>
+                  <td>{{student.parent_name}}</td>
+                  <td>{{student.phone1}}/{{student.phone2}}</td>
+                  <td>{{student.address}}</td>
+                  <td><img src="{{student.profile_pic}}" class="img-circle pull-xs-left" alt="..." height="70px" width="70px"></td>
+                  <td>
+                    <a class="btn bg-gradient-primary btn-sm" href="view_student/{{student.id}}"> view </a>
+                    <a class="btn bg-gradient-info btn-sm mx-1" href="edit_student/{{student.id}}"> Edit </a>
+                    <a class="btn bg-gradient-success btn-sm mx-1" href="activate_student/{{student.id}}"> Activate </a>
+                  </td>
+                </tr>
+              {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+              <!-- /.card-body -->
+    </div>
+            <!-- /.card -->
+  </div>
+</div>
+
+    <script>
+      // ********************************TO FILTER IN TABLE*************************************
+      $(document).ready(function(){
+        $("#mySInput").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#mySTable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+        $("#myTInput").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#myTTable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+    </script>
+{% endblock main_content  %}

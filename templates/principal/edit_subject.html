@@ -1,0 +1,81 @@
+{% extends "base/principal.html" %}
+
+{% block main_content %}
+
+<div class="row">
+        <div class="col-md-12">
+          <div class="card card-dark mt-3">
+            <div class="card-header">
+              <h3 class="card-title">Edit subject</h3>
+            </div>
+            <div class="card-body bg-light p-5 shadow">
+              <div class="">
+                </div>
+                <div class="">
+                  <div id="logins-part" class="" role="tabpanel" aria-labelledby="logins-part-trigger">
+                        {% if messages %}
+                        <div class="form-group">
+                          <div class="col-12">
+                            {% for message in messages %}
+                              {% if message.tags == "error" %}
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                  {{ message }}
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                              {% elif message.tags == "success" %}
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                  {{ message }}
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                              {% endif %}
+                            {% endfor %}
+                          </div>
+                        </div>
+                      {% endif %}
+                    <form class="" action="edit_subject_save" method="post">
+                      {% csrf_token %}
+                      <div class="form-group">
+                        <input type="hidden" class="form-control bg-light" id="First name" value="{{subjects.id}}" name="subject_id">
+                        <label for="Firstname">Subject name</label>
+                        <input class="form-control bg-light" id="First name" placeholder="{{subjects.name}}" name="subject_name">
+
+                      </div>
+                      <br><br>
+                      <div class="form-group">
+                        <h8><strong> Previous Classes: </strong>
+                          {% for classe in subjects.classes.all  %}
+                          <span class="text-primary" >{{classe.name}},</span>
+                          {% endfor %}
+                          <br><br>
+                        </h8>
+                        <label for="subject">Select New Class(es)</label><br>
+                        {% for classe in classes %}
+                          <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                            <input type="checkbox" class="btn-check ml-2" id="{{classe.name}}" autocomplete="off" value="{{classe.id}}" name="classe">
+                            <label class="btn btn-outline-success mx-2" for="{{classe.name}}">{{classe.name}}</label>
+                          </div>
+                        {% endfor %}
+                      </div>
+                      <div class="form-group">
+                        <label for="subject">Subject's Coefficient</label>
+                        <input type="number" min="1" class="form-control bg-light" id="coefficient" placeholder="5" name="coefficient">
+                      </div>
+                      <button type="submit" class="btn btn-success">Save</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+            </div>
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+
+{% endblock main_content  %}

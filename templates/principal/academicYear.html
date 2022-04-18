@@ -1,0 +1,94 @@
+{% extends "base/principal.html" %}
+
+{% block main_content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<a class="btn btn-outline-primary btn-sm mt-5 px-3 mx-5 mb-3 " href=" {% url 'add_academicYear' %} "><i class="fas fa-plus"></i>  Add Academic Year</a>
+                        {% if messages %}
+                        <div class="form-group">
+                          <div class="col-12">
+                            {% for message in messages %}
+                              {% if message.tags == "error" %}
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                  {{ message }}
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                              {% elif message.tags == "success" %}
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                  {{ message }}
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                              {% endif %}
+                            {% endfor %}
+                          </div>
+                        </div>
+                      {% endif %}
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header bg-purple">
+        <h3 class="card-title">Acadmic year List</h3>
+        <div class="card-tools">
+          <div class="input-group input-group-sm" style="width: 250px;">
+            <input type="text" name="table_search" id="mySInput" class="form-control float-right" placeholder="Search day, month or day">
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-default">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+              <!-- /.card-header -->
+      <div class="card-body table-responsive p-0 bg-light shadow-lg" style="height: 400px;">
+        <table class="table text-nowrap  shadow-lg">
+          <thead class="text-light ">
+            <tr class="bg-light">
+              <th>ID</th>
+              <th>Academic year start</th>
+              <th>Academic year end</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+              <tbody id="mySTable" class="bg-light shadow">
+                {% for academic_year in academic_years %}
+                    <tr>
+                      <td>{{academic_year.id}}</td>
+                      <td>{{academic_year.start_year}}</td>
+                      <td>{{academic_year.end_year}}</td>
+                      <td>
+                        <a class="btn bg-gradient-info btn-sm" href="edit_year/{{academic_year.id}}"> Edit </a>
+                        <a class="btn bg-gradient-danger btn-sm" href="delete_year/{{academic_year.id}}"> Delete </a>
+                      </td>
+                    </tr>
+                {% endfor %}
+              </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+  // ********************************TO FILTER IN TABLE*************************************
+  $(document).ready(function(){
+    $("#mySInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#mySTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+    $("#myTInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#myTTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+</script>
+{% endblock main_content  %}

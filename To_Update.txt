@@ -1,0 +1,4 @@
+1) Make it possible to update school addresses and other details through admin section
+by using django models
+
+2) add class to be selected on the application form

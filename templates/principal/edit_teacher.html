@@ -1,0 +1,145 @@
+{% extends "base/principal.html" %}
+
+{% block main_content %}
+
+<div class="row">
+        <div class="col-md-12">
+          <div class="card card-success mt-3">
+            <div class="card-header">
+              <h3 class="card-title">Edit Teacher</h3>
+            </div>
+            <div class="card-body bg-light p-5 shadow">
+              <div class="">
+                </div>
+                <div class="">
+                  <div id="logins-part" class="" role="tabpanel" aria-labelledby="logins-part-trigger">
+
+                    <form class="" action="edit_teacher_save" method="post" enctype="multipart/form-data">
+                      {% csrf_token %}
+                        {% if messages %}
+                        <div class="form-group">
+                          <div class="col-12">
+                            {% for message in messages %}
+                              {% if message.tags == "error" %}
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                  {{ message }}
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                              {% elif message.tags == "success" %}
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                  {{ message }}
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                              {% endif %}
+                            {% endfor %}
+                          </div>
+                        </div>
+                      {% endif %}
+                      <div class="form-group">
+                        <label for="Firstname">First name</label>
+                        <input type="hidden" class="form-control bg-light" id="First name" value="{{teacher.id}}" name="teacher_id">
+                        <input class="form-control bg-light" id="First name" placeholder="{{teacher.admin.first_name}}" name="firstname">
+                      </div>
+                      <div class="form-group">
+                        <label for="Last name">Last name</label>
+                        <input class="form-control bg-light" id="Last name" placeholder="{{teacher.admin.last_name}}" name="lastname">
+                      </div>
+                      <div class="form-group">
+                        <label for="Last name">User name</label>
+                        <input class="form-control bg-light" id="Last name" placeholder="{{teacher.admin.username}}" name="username">
+                      </div>
+                      <div class="form-group">
+                        <label for="subject">Select gender</label><br>
+                        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                          {% if teacher.gender == 'male' %}
+                            <input type="radio" class="btn-check px-5" id="btncheck9" autocomplete="off" value="male" name="gender" checked>
+                            <label class="btn btn-outline-info px-5" for="btncheck9">Male</label>
+                            <input type="radio" class="btn-check mx-2 px-5" id="btncheck10" autocomplete="off" value="female" name="gender">
+                            <label class="btn btn-outline-warning mx-2 px-5" for="btncheck10">Female</label>
+                          {% else %}
+                            <input type="radio" class="btn-check px-5" id="btncheck9" autocomplete="off" value="male" name="gender" >
+                            <label class="btn btn-outline-info px-5" for="btncheck9">Male</label>
+                            <input type="radio" class="btn-check mx-2 px-5" id="btncheck10" autocomplete="off" value="female" name="gender" checked>
+                            <label class="btn btn-outline-warning mx-2 px-5" for="btncheck10">Female</label>
+                          {% endif %}
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="Phone1">Phone number 1</label>
+                        <input class="form-control bg-light" id="Phone1" placeholder="{{teacher.phone1}}" name="phone1">
+                      </div>
+                      <div class="form-group">
+                        <label for="Phone2">Phone number 2</label>
+                        <input class="form-control bg-light" id="Phone2" placeholder="{{eacher.phone2}}" name="phone2">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control bg-light" id="exampleInputEmail1" placeholder="{{teacher.admin.email}}" name="email">
+                      </div>
+                      <div class="form-group">
+                        <label for="address">Address</label>
+                        <input class="form-control bg-light" id="address" placeholder="teacher.address" name="address">
+                      </div>
+                      <br>
+                      <div class="form-group">
+                        <h8>Previous subject(s):</h8>
+                        {% for subject in teacher.Subjects.all %}
+                          <span class="text-primary" >{{subject}},</span>
+                        {% endfor %}
+                        <br>
+                        <label for="subject">Select Subject</label><br>
+                        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                          {% for subject in subjects  %}
+                            <input type="checkbox" class="btn-check ml-2" id="{{subject.id}}" autocomplete="off" value="{{subject.id}}" name="subject">
+                            <label class="btn btn-outline-success mx-2" for="{{subject.id}}">{{subject.name}}</label>
+                          {% endfor %}
+                        </div>
+                      </div>
+                      <br>
+                      <div class="form-group">
+                        <h8>Previous Claas(es):</h8>
+                        {% for classe in teacher.Classes.all %}
+                          <span class="text-primary" >{{classe}},</span>
+                        {% endfor %}
+                        <br>
+                        <label for="class">Select Class</label> <br>
+                        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                          {% for classe in classes  %}
+                          <input type="checkbox" class="btn-check" id="{{classe.name}}" autocomplete="off" value="{{classe.id}}" name="classes">
+                          <label class="btn btn-outline-success mx-2" for="{{classe.name}}">{{classe.name}}</label>
+                        {% endfor %}
+                      </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="subject">Any health related issue?</label>
+                        <input class="form-control bg-light" id="Phone1" placeholder="{{teacher.health}}" name="health">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputFile">Profile Picture</label>
+                        <div class="input-group">
+                          <div class="custom-file">
+                            <label class="custom-file-label bg-light" for="exampleInputFile">Choose file</label>
+                            <input type="file" class="custom-file-input bg-light" id="exampleInputFile" name="myfiles">
+                          </div>
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-success">Save</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+              Cross-check the Staff's Credentials
+            </div>
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+
+{% endblock main_content  %}

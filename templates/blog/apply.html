@@ -1,0 +1,42 @@
+{% extends "blog/land.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card mt-3" >
+        <div class="card-body">
+        </div>
+
+          <div class="card card-primary mt-3 bg-primary">
+            <div class="card-header bg-primary">
+              <h3 class="card-title text-light text-center">  Fill in the admission form below </h3>
+            </div>
+            <div class="card-body bg-light shadow">
+              <form class="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="container">
+                  <div class="container">
+                    <p class="text-primary">Please provide scan copies of the documents</p>
+                    <p class="text-danger">The max size per file is 1MB</p>
+                  {{form|crispy}}
+                  </div>
+                </div>
+                <div class="text-center">
+                  <p class="text-danger" > Verify that the informations are correct before submitting the application</p>
+                  <button type="submit" class="btn btn-primary px-5 mt-3">Apply</button>
+                </div>
+              </form>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,78 @@
+{% extends "base/principal.html" %}
+{% load static %}
+{% block main_content %}
+{% load event_tags %}
+    <!-- Content Header (Page header) -->
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Info boxes -->
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mt-3 bg-light">
+              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Students </span>
+                <span class="info-box-number">
+                  {{students|count}}
+                  <small>active</small>
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3 mt-3 bg-light">
+              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-people-carry"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Teachers</span>
+                <span class="info-box-number">{{teachers|count}} <small>active</small></span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+
+          <!-- fix for small devices only -->
+
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3 mt-3 bg-light">
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-chalkboard-teacher"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Classes</span>
+                <span class="info-box-number">{{classs|count}} <small>active</small></span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3 mt-3 bg-light">
+              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Subjects</span>
+                <span class="info-box-number">{{subjects|count}} <small>active</small></span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        <!-- /.row -->
+      </div><!--/. container-fluid -->
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}

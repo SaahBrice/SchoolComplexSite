@@ -1,0 +1,30 @@
+{% extends "blog/land.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<link rel="stylesheet" href=" {% static "static/css/mycss/thankyou.css" %} ">
+{% block content %}
+<link rel="stylesheet" href=" {% static "static/css/mycss/thankyou.css" %} ">
+  <div class="wrapper">
+    <h5>THANK YOU. YOUR APPLICATION HAS BEEN SUBMITTED SUCCESSFULLY</h5>
+  </div>
+  <div class="text-center">
+    <p>A Rainbow School Complex administrator will contact you once your application is accepted.</p>
+    <p>You will also recieve a notification via mail or text message</p>
+
+    <div id=container>
+      WE foster
+      <div id=flip>
+        <div><div>Hardwork</div></div>
+        <div><div>Prayers</div></div>
+        <div><div>Patience</div></div>
+      </div>
+      everyday!
+    </div>
+  </div>
+
+<script type="text/javascript">
+  new Sign().print(document.body)
+
+</script>
+{% endblock content %}

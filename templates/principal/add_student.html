@@ -1,0 +1,142 @@
+{% extends "base/principal.html" %}
+
+{% block main_content %}
+
+<div class="row">
+        <div class="col-md-12">
+          <div class="card card-success mt-3">
+            <div class="card-header">
+              <h3 class="card-title">Register new student</h3>
+            </div>
+            <div class="card-body bg-light p-5 shadow">
+              <div class="">
+                </div>
+                <div class="">
+                  <div id="logins-part" class="" role="tabpanel" aria-labelledby="logins-part-trigger">
+                        {% if messages %}
+                        <div class="form-group">
+                          <div class="col-12">
+                            {% for message in messages %}
+                              {% if message.tags == "error" %}
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                  {{ message }}
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                              {% elif message.tags == "success" %}
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                  {{ message }}
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                              {% endif %}
+                            {% endfor %}
+                          </div>
+                        </div>
+                      {% endif %}
+                    <form class="" action="save_student" method="post" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class="form-group">
+                        <label for="Firstname">First name</label>
+                        <input class="form-control bg-light" id="First name" placeholder="Enter First name" name="firstname">
+                      </div>
+                      <div class="form-group">
+                        <label for="Last name">Last name</label>
+                        <input class="form-control bg-light" id="Last name" placeholder="Enter Last name" name="lastname">
+                      </div>
+                      <div class="form-group">
+                        <label for="Last name">User name</label>
+                        <input class="form-control bg-light" id="Last name" placeholder="Enter user name" name="username">
+                      </div>
+                      <div class="form-group">
+                        <label for="subject">Select gender</label><br>
+                        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                          <input type="radio" class="btn-check px-5" id="btncheck9" autocomplete="off" value="male" name="gender">
+                          <label class="btn btn-outline-info px-5" for="btncheck9">Male</label>
+
+                          <input type="radio" class="btn-check mx-2 px-5" id="btncheck10" autocomplete="off" value="female" name="gender">
+                          <label class="btn btn-outline-warning mx-2 px-5" for="btncheck10">Female</label>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="Phone2">Parent's name </label>
+                        <input class="form-control bg-light" id="Phone2" placeholder="name" name="parent_name">
+                      </div>
+                      <div class="form-group">
+                        <label for="Phone1">Parent's Phone number 1</label>
+                        <input class="form-control bg-light" id="Phone1" placeholder="+237" name="phone1">
+                      </div>
+                      <div class="form-group">
+                        <label for="Phone2">Parent's number 2</label>
+                        <input class="form-control bg-light" id="Phone2" placeholder="+237" name="phone2">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Parent's Email address</label>
+                        <input type="email" class="form-control bg-light" id="exampleInputEmail1" placeholder="Enter email" name="email">
+                      </div>
+                      <div class="form-group">
+                        <label for="address">Parent's Address</label>
+                        <input class="form-control bg-light" id="address" placeholder="Address" name="address">
+                      </div>
+                      <div class="form-group">
+                        <label for="class">Select Class</label> <br>
+                        {% for classe in classes %}
+                          <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                            <input type="radio" class="btn-check" id="{{classe.name}}" autocomplete="off" value="{{classe.id}}" name="class">
+                            <label class="btn btn-outline-success mx-2" for="{{classe.name}}">{{classe.name}}</label>
+                          </div>
+                        {% endfor %}
+                      </div>
+                      <div class="form-group">
+                        <label for="class">Select academic year</label> <br>
+                        {% for academic_year in academic_years %}
+                          <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                          <input type="radio" class="btn-check" id="{{academic_year.start_year}}" autocomplete="off" value="{{academic_year.id}}"name="academic_year">
+                          <label class="btn btn-outline-success mx-2" for="{{academic_year.start_year}}">{{academic_year.start_year}} </label>
+                          </div>
+                        {% endfor %}
+                      </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="subject">Previous school</label>
+                        <input class="form-control bg-light" id="Phone1" placeholder="GBHS ...." name="previous_school">
+                      </div>
+                      <div class="form-group">
+                        <label for="subject">Any health related issue?</label>
+                        <input class="form-control bg-light" id="Phone1" placeholder="Diabetes" name="health">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputFile">Profile Picture</label>
+                        <div class="input-group">
+                          <div class="custom-file">
+                            <label class="custom-file-label bg-light" for="exampleInputFile">Choose file</label>
+                            <input type="file" class="custom-file-input bg-light" id="exampleInputFile" name="myfile">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control bg-light" id="exampleInputPassword1" placeholder="Password" name="password">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Confirm Password</label>
+                        <input type="password" class="form-control bg-light" id="exampleInputPassword1" placeholder="Password" name="confirmPassword">
+                      </div>
+                      <button type="submit" class="btn btn-success">Register</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+              Cross-check the Student's Credentials
+            </div>
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+
+{% endblock main_content  %}

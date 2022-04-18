@@ -1,0 +1,57 @@
+{% extends "base/principal.html" %}
+
+{% block main_content %}
+
+<div class="row">
+        <div class="col-md-6">
+          <div class="card card-dark mt-3">
+            <div class="card-header">
+              <h3 class="card-title">Register new class</h3>
+            </div>
+            <div class="card-body bg-light p-5 shadow">
+              <div class="">
+                </div>
+                <div class="">
+                  <div id="logins-part" class="" role="tabpanel" aria-labelledby="logins-part-trigger">
+                        {% if messages %}
+                        <div class="form-group">
+                          <div class="col-12">
+                            {% for message in messages %}
+                              {% if message.tags == "error" %}
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                  {{ message }}
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                              {% elif message.tags == "success" %}
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                  {{ message }}
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                              {% endif %}
+                            {% endfor %}
+                          </div>
+                        </div>
+                      {% endif %}
+                    <form class="" action="save_class" method="post">
+                      {% csrf_token %}
+                      <div class="form-group">
+                        <label for="Firstname">Class name:</label>
+                        <input class="form-control bg-light" id="First name" placeholder="Form 1 or Form 1A" name="class_name">
+                      </div>
+                      <button type="submit" class="btn btn-success px-5 mt-3">Add</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+
+{% endblock main_content  %}

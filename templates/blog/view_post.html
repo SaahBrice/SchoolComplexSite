@@ -1,0 +1,19 @@
+{% extends "blog/land.html" %}
+{% load static %}
+
+
+
+{% block content %}
+
+<div class="container mt-3 bg-light">
+  <h3 class="text-center text-primary mt-3"><u>{{S_article.title}}</u></h3>
+  <div class="uk-panel">
+      <img class="uk-align-left uk-margin-remove-adjacent" src="{{S_article.card_image.url}} " width="525" height="450" alt="Example image">
+      <p class="pt-3"> {{S_article.content|safe}} </p>
+      <small>post by {{request.user.username}} on the {{S_article.created_on}}</small> <br>
+<button class="btn btn-sm btn-outline-success mt-2"><i class="fas fa-hand-holding-heart fa-1x"></i> Like</button>
+  </div>
+</div>
+
+
+{% endblock content %}

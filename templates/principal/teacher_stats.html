@@ -1,0 +1,89 @@
+{% extends "base/principal.html" %}
+
+{% block main_content %}
+
+
+
+  <div class="container">
+   <div class="row pt-5">
+     <div class="col-sm-4 bg-light shadow ">
+       <ul class="list-group">
+         <h4 class="bg-dark  pb-1 pt-1 text-center"> <strong class=" ">Details</strong> </h4>
+         <li class="list-group-item d-flex justify-content-between align-items-cente ">
+           First Name:
+           <strong><span class="">{{teacher.admin.first_name}}</span></strong>
+         </li>
+         <li class="list-group-item d-flex justify-content-between align-items-center ">
+          Last Name:
+           <strong><span class="">{{teacher.admin.last_name}}</span></strong>
+         </li>
+         <li class="list-group-item d-flex justify-content-between align-items-center">
+            Phone1:
+           <strong><span class="">{{teacher.phone1}}</span></strong>
+         </li>
+         <li class="list-group-item d-flex justify-content-between align-items-center">
+            Phone2:
+           <strong><span class="">{{teacher.phone2}}</span></strong>
+         </li>
+         <li class="list-group-item d-flex justify-content-between align-items-center">
+           Email:
+           <strong><span class="text-dark">{{teacher.admin.email}}</span></strong>
+         </li>
+         <li class="list-group-item d-flex justify-content-between align-items-center">
+            Gender
+           <strong><span class="">{{teacher.gender}}</span></strong>
+         </li>
+         <li class="list-group-item d-flex justify-content-between align-items-center">
+            Address
+           <strong><span class="">{{teacher.address}}</span></strong>
+         </li>
+         <li class="list-group-item d-flex justify-content-between align-items-center">
+            health
+           <strong><span class="">{{teacher.health}}</span></strong>
+         </li>
+       </ul>
+     </div>
+     <div class="col-sm-4 ">
+       <img src="{{teacher.profile_pic}}" class="img-fluid pull-xs-left img-rounded  mt-3" width="400" height="400" alt="trashcan">
+       <div class="container ">
+         <a class="btn btn-block btn-sm btn-outline-danger   mt-4 mb-4 mt-3" href="delete_teacher/{{teacher.id}}"><strong>Delete Profile</strong></a>
+
+       </div>
+     </div>
+     <div class="col-sm-4 bg-light shadow ">
+       <ul class="list-group">
+         <h2 class="bg-dark text-center"> <strong>Status</strong> </h2>
+
+         <li class="list-group-item d-flex justify-content-between align-items-center">
+           Subject(s):
+           {% for subject in teacher.Subjects.all %}
+             <strong><span class="">{{subject.name}}</span>,</strong>
+           {% endfor %}
+         </li>
+         <li class="list-group-item d-flex justify-content-between align-items-center">
+           Class(es):
+           {% for classe in teacher.Classes.all %}
+             <strong><span class=" text-dark">{{classe.name}}</span>,</strong>
+           {% endfor %}
+         </li>
+         <li class="list-group-item d-flex justify-content-between align-items-center">
+            Created at:
+           <span class="badge bg-primary btn-lg rounded-pill">{{teacher.created_at}}</span>
+         </li>
+         <li class="list-group-item d-flex justify-content-between align-items-center">
+           Updated at:
+           <span class="badge bg-primary btn-lg rounded-pill">{{teacher.updated_at}}</span>
+         </li>
+       </ul>
+     </div>
+   </div>
+ </div>
+
+
+
+
+
+
+
+
+{% endblock main_content  %}

@@ -1,0 +1,23 @@
+{% extends "base/principal.html" %}
+{% load static %}
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+{% block main_content %}
+<div class="row">
+        <div class="col-md-6">
+          <div class=" mt-3">
+            <div class="card-header">
+              <h3 class="card-title"> Site message</h3>
+            </div>
+            <div class="card-body bg-light p-5 ">
+              <h6><strong>{{message.name}}</strong></h6>
+              <p>{{message.message}}</p>
+              <small>{{message.created_on}}</small>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+
+{% endblock main_content  %}

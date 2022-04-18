@@ -1,0 +1,47 @@
+{% extends "base/principal.html" %}
+{% load static %}
+{% block main_content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                        {% if messages %}
+                        <div class="form-group">
+                          <div class="col-12">
+                            {% for message in messages %}
+                              {% if message.tags == "error" %}
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                  {{ message }}
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                              {% elif message.tags == "success" %}
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                  {{ message }}
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                              {% endif %}
+                            {% endfor %}
+                          </div>
+                        </div>
+                      {% endif %}
+<div class="row">
+  <div class="col-12 mt-3">
+    <p> <strong>Full names:</strong> {{f1.Full_names}}</p>
+    <p> <strong>Date of birth:</strong> {{f1.Date_of_birth}}</p>
+    <p> <strong>Gender:</strong> {{l6.Gender}}</p>
+    <p> <strong>Admission Class:</strong> {{f1.Admission_Class}}</p>
+    <p> <strong>Physical condition:</strong> {{f1.Physical_condition}}</p>
+    <p> <strong>Parent name:</strong> {{f1.parent_name}}</p>
+    <p> <strong>Parent Contact:</strong> {{f1.Parent_Contact}}</p>
+    <p> <strong>Alternative contact:</strong> {{f1.Alternative_contact}}</p>
+    <p> <strong>Parent Email:</strong> {{f1.Parent_Email}}</p>
+    <p> <strong>Alternative email:</strong> {{f1.Alternative_email}}</p>
+    <p> <strong>Previous school:</strong> {{f1.Previous_school}}</p>
+    <p> <strong>Birth certificate:</strong> <a href="{{f1.Birth_certificate.url}}" download>Download</a></p>
+    <p> <strong>Nursery School Certificate:</strong> <a href="{{f1.Nursery_school_certificate.url}}" download>Download</a></p>
+    <p> <strong>Clinical card:</strong> <a href="{{f1.Clinical_card_showing_vaccination_taken.url}}" download>Download</a></p>
+  </div>
+</div>
+
+{% endblock main_content  %}

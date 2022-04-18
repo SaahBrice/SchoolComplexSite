@@ -1,0 +1,49 @@
+{% extends "base/principal.html" %}
+{% load static %}
+{% block main_content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                        {% if messages %}
+                        <div class="form-group">
+                          <div class="col-12">
+                            {% for message in messages %}
+                              {% if message.tags == "error" %}
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                  {{ message }}
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                              {% elif message.tags == "success" %}
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                  {{ message }}
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                              {% endif %}
+                            {% endfor %}
+                          </div>
+                        </div>
+                      {% endif %}
+<div class="row">
+  <div class="col-12 mt-3">
+    <p> <strong>Full names:</strong> {{f1.Full_names}}</p>
+    <p> <strong>Date of birth:</strong> {{f1.Date_of_birth}}</p>
+    <p> <strong>Gender:</strong> {{l6.Gender}}</p>
+    <p> <strong>Section of choice:</strong> {{f1.Section_of_choice}}</p>
+    <p> <strong>Physical condition:</strong> {{f1.Physical_condition}}</p>
+    <p> <strong>Residence:</strong> {{f1.Residence}}</p>
+    <p> <strong>Contact:</strong> {{f1.Contact}}</p>
+    <p> <strong>Alternative contact:</strong> {{f1.Alternative_contact}}</p>
+    <p> <strong>Email:</strong> {{f1.Email}}</p>
+    <p> <strong>Alternative email:</strong> {{f1.Alternative_email}}</p>
+    <p> <strong>Previous Occupation:</strong> {{f1.Previous_occupation}}</p>
+    <p> <strong>Hand written application:</strong> <a href="{{f1.Hand_written_application.url}}" download>Download</a></p>
+    <p> <strong>Highest  Certificate:</strong> <a href="{{f1.Highest_certificate.url}}" download>Download</a></p>
+    <p> <strong>CV :</strong> <a href="{{f1.CV.url}}" download>Download</a></p>
+    <p> <strong>National ID :</strong> <a href="{{f1.National_ID.url}}" download>Download</a></p>
+    <p> <strong>Picture 4X4 :</strong> <a href="{{f1.Picture_4X4_white_or_red_background.url}}" download>Download</a></p>
+  </div>
+</div>
+
+{% endblock main_content  %}

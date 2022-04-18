@@ -1,0 +1,107 @@
+{% extends "base/principal.html" %}
+
+{% block main_content %}
+{% load event_tags %}
+<a class="btn btn-outline-primary btn-sm mt-5 px-3 mx-5 mb-3" href=" {% url 'add_class' %} "><i class="fas fa-plus"></i>  Add Class</a>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  {% if messages %}
+  <div class="form-group">
+    <div class="col-12">
+      {% for message in messages %}
+        {% if message.tags == "error" %}
+          <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {% elif message.tags == "success" %}
+          <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header bg-teal">
+        <h3 class="card-title">Class List</h3>
+        <div class="card-tools">
+          <div class="input-group input-group-sm" style="width: 250px;">
+            <input type="text" name="table_search" class="form-control float-right" id="mySInput" placeholder="Search class, teacher">
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-default">
+              <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+<!-- /.card-header -->
+      <div class="card-body table-responsive p-0 bg-light shadow-lg" style="height: 600px;">
+        <table class="table text-nowrap  shadow-lg">
+          <thead class="text-light ">
+            <tr class="bg-light">
+              <th>ID</th>
+              <th>Name</th>
+              <th>Teachers</th>
+              <th>Number of Students</th>
+              <th>Action </th>
+            </tr>
+          </thead>
+          <tbody id="mySTable" class="bg-light shadow">
+            {% for classe in classes %}
+              <tr>
+                <td>{{classe.id}}</td>
+                <td>{{classe.name}}</td>
+                <td>
+                  {% for teacher in teachers %}
+                    {% for class in teacher.Classes.all %}
+                      {% if class.name == classe.name %}
+                        <strong>°{{teacher.admin.username}}: </strong>
+                        <br>
+                      {% endif %}
+                    {% endfor %}
+                  {% endfor %}
+                </td>
+                <td>{{classe.id|number}}</td>
+                <td>
+                  <a class="btn bg-gradient-info btn-sm" href="edit_class/{{classe.id}}"> Edit </a>
+                  <a class="btn bg-gradient-danger btn-sm" href="delete_class/{{classe.id}}"> Delete </a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+  // ********************************TO FILTER IN TABLE*************************************
+  $(document).ready(function(){
+    $("#mySInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#mySTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+    $("#myTInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#myTTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+</script>
+{% endblock main_content  %}

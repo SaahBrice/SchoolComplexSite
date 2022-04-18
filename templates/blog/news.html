@@ -1,0 +1,162 @@
+{% extends "blog/land.html" %}
+{% load static %}
+
+
+
+{% block content %}
+
+<div class="container">
+  <div class="uk-grid-small uk-child-width-1-4@m" uk-grid uk-height-match="target: > div > .uk-card">
+    {% for article in articles %}
+      <div class="">
+          <div class="uk-card uk-card-small uk-card-default mt-3" >
+              <div class="uk-card-media-top uk-card-hover" >
+                  <img src="{{article.card_image.url}}" alt="">
+              </div>
+              <div class="uk-card-body uk-card-hover">
+                  <h7 class="uk-card-title text-primary"> <strong>{{article.title}}</strong> </h7>
+                  <hr class="uk-divider-icon uk-background-primary">
+                  <p class="text-dark" >{{article.description}}</p>
+              </div>
+              <div class="uk-card-footer uk-card-hover">
+                <a href="view_post/{{article.id}}" class="uk-button uk-button-default uk-width-1-1 uk-margin-small-bottom bg-success text-light">Read more</a>
+              </div>
+          </div>
+      </div>
+    {% endfor %}
+
+
+  </div>
+
+
+
+</div>
+
+
+
+
+{% endblock content %}
+
+
+
+<!--
+<div class="container">
+  <div class="uk-grid-small uk-child-width-1-4@m" uk-grid uk-height-match="target: > div > .uk-card">
+      <div>
+          <div class="uk-card uk-card-small uk-card-default" >
+              <div class="uk-card-media-top uk-card-hover" >
+                  <img src="{% static "media/t.jpg" %}" alt="">
+              </div>
+              <div class="uk-card-body uk-card-hover">
+                  <h3 class="uk-card-title text-primary"> <strong>The educational forest grow</strong> </h3>
+                  <p class="text-dark" >23.07.2021, Once again "ZHS goes green"! On Wednesday, July 7, 2021, the municipality ..</p>
+              </div>
+              <div class="uk-card-footer uk-card-hover">
+                <a href="#" class="uk-button uk-button-default uk-width-1-1 uk-margin-small-bottom bg-success text-light">Read more</a>
+              </div>
+          </div>
+      </div>
+      <div>
+          <div class="uk-card uk-card-small uk-card-default">
+              <div class="uk-card-media-top uk-card-hover">
+                  <img src="{% static "media/g.jpg" %}" alt="">
+              </div>
+              <div class="uk-card-body uk-card-hover">
+                  <h3 class="uk-card-title text-primary"> <strong>Fourth Round of  graduates ZHS</strong> </h3>
+                  <p class="text-dark" >31.05.2021, ZHS says goodbye to the fourth graduating class ..</p>
+              </div>
+              <div class="uk-card-footer uk-card-hover">
+                <a href="#" class="uk-button uk-button-default uk-width-1-1 uk-margin-small-bottom bg-success text-light">Read more</a>
+              </div>
+          </div>
+      </div>
+      <div>
+          <div class="uk-card uk-card-small uk-card-default ">
+              <div class="uk-card-media-top uk-card-hover">
+                  <img src="{% static "media/c.jpg" %}" alt="">
+              </div>
+              <div class="uk-card-body uk-card-hover">
+                  <h3 class="uk-card-title text-primary"> <strong>Education in Corona times</strong> </h3>
+                  <p class="text-dark" >15.02.2021, The Corona pandemic has presented us all with great challenges. Homeschooling and ...</p>
+              </div>
+              <div class="uk-card-footer uk-card-hover">
+                <a href="#" class="uk-button uk-button-default uk-width-1-1 uk-margin-small-bottom bg-success text-light">Read more</a>
+              </div>
+          </div>
+      </div>
+      <div>
+          <div class="uk-card uk-card-small uk-card-default">
+              <div class="uk-card-media-top uk-card-hover">
+                  <img src="{% static "media/ch.jpg" %}" alt="">
+              </div>
+              <div class="uk-card-body uk-card-hover">
+                  <h3 class="uk-card-title text-primary"> <strong>A visit of the Cardinal</strong> </h3>
+                  <p class="text-dark" >15.02.2021, The cardinal visited our campus ...</p>
+              </div>
+              <div class="uk-card-footer uk-card-hover">
+                <a href="#" class="uk-button uk-button-default uk-width-1-1 uk-margin-small-bottom bg-success text-light">Read more</a>
+              </div>
+          </div>
+      </div>
+      <div>
+          <div class="uk-card uk-card-small uk-card-default" >
+              <div class="uk-card-media-top uk-card-hover" >
+                  <img src="{% static "media/t.jpg" %}" alt="">
+              </div>
+              <div class="uk-card-body uk-card-hover">
+                  <h3 class="uk-card-title text-primary"> <strong>The educational forest grow</strong> </h3>
+                  <p class="text-dark" >23.07.2021, Once again "ZHS goes green"! On Wednesday, July 7, 2021, the municipality ..</p>
+              </div>
+              <div class="uk-card-footer uk-card-hover">
+                <a href="#" class="uk-button uk-button-default uk-width-1-1 uk-margin-small-bottom bg-success text-light">Read more</a>
+              </div>
+          </div>
+      </div>
+      <div>
+          <div class="uk-card uk-card-small uk-card-default">
+              <div class="uk-card-media-top uk-card-hover">
+                  <img src="{% static "media/g.jpg" %}" alt="">
+              </div>
+              <div class="uk-card-body uk-card-hover">
+                  <h3 class="uk-card-title text-primary"> <strong>Fourth Round of  graduates ZHS</strong> </h3>
+                  <p class="text-dark" >31.05.2021, ZHS says goodbye to the fourth graduating class ..</p>
+              </div>
+              <div class="uk-card-footer uk-card-hover">
+                <a href="#" class="uk-button uk-button-default uk-width-1-1 uk-margin-small-bottom bg-success text-light">Read more</a>
+              </div>
+          </div>
+      </div>
+      <div>
+          <div class="uk-card uk-card-small uk-card-default ">
+              <div class="uk-card-media-top uk-card-hover">
+                  <img src="{% static "media/c.jpg" %}" alt="">
+              </div>
+              <div class="uk-card-body uk-card-hover">
+                  <h3 class="uk-card-title text-primary"> <strong>Education in Corona times</strong> </h3>
+                  <p class="text-dark" >15.02.2021, The Corona pandemic has presented us all with great challenges. Homeschooling and ...</p>
+              </div>
+              <div class="uk-card-footer uk-card-hover">
+                <a href="#" class="uk-button uk-button-default uk-width-1-1 uk-margin-small-bottom bg-success text-light">Read more</a>
+              </div>
+          </div>
+      </div>
+      <div>
+          <div class="uk-card uk-card-small uk-card-default">
+              <div class="uk-card-media-top uk-card-hover">
+                  <img src="{% static "media/ch.jpg" %}" alt="">
+              </div>
+              <div class="uk-card-body uk-card-hover">
+                  <h3 class="uk-card-title text-primary"> <strong>A visit of the Cardinal</strong> </h3>
+                  <p class="text-dark" >15.02.2021, The cardinal visited our campus ...</p>
+              </div>
+              <div class="uk-card-footer uk-card-hover">
+                <a href="#" class="uk-button uk-button-default uk-width-1-1 uk-margin-small-bottom bg-success text-light">Read more</a>
+              </div>
+          </div>
+      </div>
+
+  </div>
+
+
+
+</div> -->

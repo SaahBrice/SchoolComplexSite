@@ -1,0 +1,92 @@
+{% extends "base/principal.html" %}
+
+{% block main_content %}
+
+
+
+  <div class="container">
+   <div class="row pt-5">
+     <div class="col-sm-4 bg-white shadow ">
+       <ul class="list-group">
+         <h4 class="bg-lime  pb-1 pt-1 pb-2 text-center"> <strong class=" ">Student</strong> </h4>
+         <li class="list-group-item d-flex justify-content-between align-items-cente ">
+           First Name:
+           <strong><span class="">{{student.admin.first_name}}</span></strong>
+         </li>
+         <li class="list-group-item d-flex justify-content-between align-items-center ">
+          Last Name:
+           <strong><span class="">{{student.admin.last_name}}</span></strong>
+         </li>
+         <li class="list-group-item d-flex justify-content-between align-items-center">
+            Gender
+           <strong><span class="">{{student.gender}}</span></strong>
+         </li>
+         <li class="list-group-item d-flex justify-content-between align-items-center">
+           Class:
+             <strong><span class="">{{student.classs.name}}</span></strong>
+         </li>
+         <li class="list-group-item d-flex justify-content-between align-items-center">
+           Academic year joined:
+             <strong><span class="badge bg-primary btn-lg rounded-pill">{{student.academic_year.start_year}}</span></strong>
+         </li>
+         <li class="list-group-item d-flex justify-content-between align-items-center">
+           Previous school:
+             <strong><span class="">{{student.previous_school}}</span></strong>
+         </li>
+         <li class="list-group-item d-flex justify-content-between align-items-center">
+            health
+           <strong><span class="">{{student.health}}</span></strong>
+         </li>
+       </ul>
+     </div>
+     <div class="col-sm-4 ">
+       <img src="{{student.profile_pic}}" class="img-fluid pull-xs-left img-rounded  mt-3" width="400" height="400" alt="trashcan">
+       <div class="container ">
+         <a class="btn btn-block btn-sm btn-outline-danger   mt-4 mb-4 mt-3" href="delete_student/{{student.id}}"><strong>Delete Profile</strong></a>
+
+       </div>
+     </div>
+     <div class="col-sm-4 bg-white shadow ">
+       <ul class="list-group">
+         <h4 class="bg-indigo pb-2 text-center"> <strong>Parent</strong> </h4>
+         <li class="list-group-item d-flex justify-content-between align-items-center">
+            Name:
+           <strong><span class="">{{student.parent_name}}</span></strong>
+         </li>
+         <li class="list-group-item d-flex justify-content-between align-items-center">
+            Phone1:
+           <strong><span class="">{{student.phone1}}</span></strong>
+         </li>
+         <li class="list-group-item d-flex justify-content-between align-items-center">
+            Phone2:
+           <strong><span class="">{{student.phone2}}</span></strong>
+         </li>
+         <li class="list-group-item d-flex justify-content-between align-items-center">
+           Email:
+           <strong><span class="text-dark">{{student.admin.email}}</span></strong>
+         </li>
+         <li class="list-group-item d-flex justify-content-between align-items-center">
+            Address
+           <strong><span class="">{{student.address}}</span></strong>
+         </li>
+         <li class="list-group-item d-flex justify-content-between align-items-center">
+            Created at:
+           <span class="badge bg-primary btn-lg rounded-pill">{{student.created_at}}</span>
+         </li>
+         <li class="list-group-item d-flex justify-content-between align-items-center">
+           Updated at:
+           <span class="badge bg-primary btn-lg rounded-pill">{{student.updated_at}}</span>
+         </li>
+       </ul>
+     </div>
+   </div>
+ </div>
+
+
+
+
+
+
+
+
+{% endblock main_content  %}

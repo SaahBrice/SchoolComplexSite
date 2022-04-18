@@ -1,0 +1,561 @@
+{% extends "base/principal.html" %}
+{% load static %}
+{% block main_content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                        {% if messages %}
+                        <div class="form-group">
+                          <div class="col-12">
+                            {% for message in messages %}
+                              {% if message.tags == "error" %}
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                  {{ message }}
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                              {% elif message.tags == "success" %}
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                  {{ message }}
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                              {% endif %}
+                            {% endfor %}
+                          </div>
+                        </div>
+                      {% endif %}
+<div class="row">
+  <div class="col-12 mt-3">
+    <div class="card">
+      <div class="card-header bg-primary">
+        <h3 class="card-title">LowerSixth Application List</h3>
+        <div class="card-tools">
+          <div class="input-group input-group-sm" style="width: 250px;">
+            <input type="text" name="table_search" class="form-control float-right" id="mySInput" placeholder="Search">
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-default">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+              <!-- /.card-header -->
+      <div class="card-body table-responsive p-0 bg-light shadow-lg" style="height: 250px;">
+        <table class="table text-nowrap table-hover bg-primary shadow-lg">
+          <thead class="text-light ">
+            <tr class="bg-light">
+              <th>ID</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Residence</th>
+              <th>Applied On</th>
+              <th>Option</th>
+            </tr>
+          </thead>
+          <tbody class="bg-light shadow" id="mySTable">
+            {% for lowersixth in lowersixths %}
+              {% if lowersixth.Approved %}
+                <tr class="bg-gray disabled">
+                  <td>{{lowersixth.id}}</td>
+                  <td>{{lowersixth.Full_names}}</td>
+                  <td>{{lowersixth.Parent_Contact}} <br>{{lowersixth.Alternative_contact}} </td>
+                  <td>{{lowersixth.Parent_Email}} <br>{{lowersixth.Alternative_email}}</td>
+                  <td>{{lowersixth.Town_of_Residence}}</td>
+                  <td>{{lowersixth.Created_on}}</td>
+                  <td>
+                    <button type="button" name="button" class="btn btn-sm btn-info">Accepted</button>
+                  </td>
+                </tr>
+              {% else %}
+                <tr>
+                  <td>{{lowersixth.id}}</td>
+                  <td>{{lowersixth.Full_names}}</td>
+                  <td>{{lowersixth.Parent_Contact}} <br>{{lowersixth.Alternative_contact}} </td>
+                  <td>{{lowersixth.Parent_Email}} <br>{{lowersixth.Alternative_email}}</td>
+                  <td>{{lowersixth.Town_of_Residence}}</td>
+                  <td>{{lowersixth.Created_on}}</td>
+                  <td>
+                    <a class="btn bg-gradient-primary btn-sm mx-1" href="l6_app_view/{{lowersixth.id}}"> view </a>
+                    <a class="btn bg-gradient-warning btn-sm mx-1" href="l6_app_accept/{{lowersixth.id}}"> Accept </a>
+                  </td>
+                </tr>
+              {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+              <!-- /.card-body -->
+    </div>
+            <!-- /.card -->
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 mt-3">
+    <div class="card">
+      <div class="card-header bg-primary">
+        <h3 class="card-title">Form2-Form4 Application List</h3>
+        <div class="card-tools">
+          <div class="input-group input-group-sm" style="width: 250px;">
+            <input type="text" name="table_search" class="form-control float-right" id="myTInput" placeholder="Search">
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-default">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+              <!-- /.card-header -->
+      <div class="card-body table-responsive p-0 bg-light shadow-lg" style="height: 250px;">
+        <table class="table text-nowrap table-hover bg-primary shadow-lg">
+          <thead class="text-light ">
+            <tr class="bg-light">
+              <th>ID</th>
+              <th>Name</th>
+              <th>Class</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Residence</th>
+              <th>Applied On</th>
+              <th>Option</th>
+            </tr>
+          </thead>
+          <tbody class="bg-light shadow" id="myTTable">
+            {% for otherform in otherforms %}
+              {% if otherform.Approved %}
+                <tr class="bg-gray disabled">
+                  <td>{{otherform.id}}</td>
+                  <td>{{otherform.Full_names}}</td>
+                  <td>{{otherform.Admission_Class}}</td>
+                  <td>{{otherform.Parent_Contact}} <br>{{otherform.Alternative_contact}} </td>
+                  <td>{{otherform.Parent_Email}} <br>{{otherform.Alternative_email}}</td>
+                  <td>{{otherform.Town_of_Residence}}</td>
+                  <td>{{otherform.Created_on}}</td>
+                  <td>
+                    <button class="btn btn-sm btn-info" type="button" name="button">Approved</button>
+                  </td>
+                </tr>
+              {% else %}
+                <tr>
+                  <td>{{otherform.id}}</td>
+                  <td>{{otherform.Full_names}}</td>
+                  <td>{{otherform.Admission_Class}}</td>
+                  <td>{{otherform.Parent_Contact}} <br>{{otherform.Alternative_contact}} </td>
+                  <td>{{otherform.Parent_Email}} <br>{{otherform.Alternative_email}}</td>
+                  <td>{{otherform.Town_of_Residence}}</td>
+                  <td>{{otherform.Created_on}}</td>
+                  <td>
+                    <a class="btn bg-gradient-primary btn-sm mx-1" href="f2_4_app_view/{{otherform.id}}"> view </a>
+                    <a class="btn bg-gradient-warning btn-sm mx-1" href="f2_4_app_accept/{{otherform.id}}"> Accept </a>
+                  </td>
+                </tr>
+              {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+              <!-- /.card-body -->
+    </div>
+            <!-- /.card -->
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 mt-3">
+    <div class="card">
+      <div class="card-header bg-primary">
+        <h3 class="card-title">Form1 Application List</h3>
+        <div class="card-tools">
+          <div class="input-group input-group-sm" style="width: 250px;">
+            <input type="text" name="table_search" class="form-control float-right" id="my1Input" placeholder="Search">
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-default">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+              <!-- /.card-header -->
+      <div class="card-body table-responsive p-0 bg-light shadow-lg" style="height: 250px;">
+        <table class="table text-nowrap table-hover bg-primary shadow-lg">
+          <thead class="text-light ">
+            <tr class="bg-light">
+              <th>ID</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Residence</th>
+              <th>Applied On</th>
+              <th>Option</th>
+            </tr>
+          </thead>
+          <tbody class="bg-light shadow" id="my1Table">
+            {% for form1 in form1s %}
+              {% if form1.Approved %}
+                <tr class="bg-gray disabled">
+                  <td>{{form1.id}}</td>
+                  <td>{{form1.Full_names}}</td>
+                  <td>{{form1.Parent_Contact}} <br>{{form1.Alternative_contact}} </td>
+                  <td>{{form1.Parent_Email}} <br>{{form1.Alternative_email}}</td>
+                  <td>{{form1.Town_of_Residence}}</td>
+                  <td>{{form1.Created_on}}</td>
+                  <td>
+                    <button class="btn btn-sm btn-info" type="button" name="button">Approved</button>
+                  </td>
+                </tr>
+              {% else %}
+                <tr>
+                  <td>{{form1.id}}</td>
+                  <td>{{form1.Full_names}}</td>
+                  <td>{{form1.Parent_Contact}} <br>{{form1.Alternative_contact}} </td>
+                  <td>{{form1.Parent_Email}} <br>{{form1.Alternative_email}}</td>
+                  <td>{{form1.Town_of_Residence}}</td>
+                  <td>{{form1.Created_on}}</td>
+                  <td>
+                    <a class="btn bg-gradient-primary btn-sm mx-1" href="f1_app_view/{{form1.id}}"> view </a>
+                    <a class="btn bg-gradient-warning btn-sm mx-1" href="f1_app_accept/{{form1.id}}"> Accept </a>
+                  </td>
+                </tr>
+              {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+              <!-- /.card-body -->
+    </div>
+            <!-- /.card -->
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 mt-3">
+    <div class="card">
+      <div class="card-header bg-success">
+        <h3 class="card-title">Class2-Class6 Application List</h3>
+        <div class="card-tools">
+          <div class="input-group input-group-sm" style="width: 250px;">
+            <input type="text" name="table_search" class="form-control float-right" id="mycInput" placeholder="Search">
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-default">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+              <!-- /.card-header -->
+      <div class="card-body table-responsive p-0 bg-light shadow-lg" style="height: 250px;">
+        <table class="table text-nowrap table-hover bg-primary shadow-lg">
+          <thead class="text-light ">
+            <tr class="bg-light">
+              <th>ID</th>
+              <th>Name</th>
+              <th>Class</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Previous_school</th>
+              <th>Applied On</th>
+              <th>Option</th>
+            </tr>
+          </thead>
+          <tbody class="bg-light shadow" id="mycTable">
+            {% for otherclasse in otherclasses %}
+              {% if otherclasse.Approved %}
+                <tr class="bg-gray disabled">
+                  <td>{{otherclasse.id}}</td>
+                  <td>{{otherclasse.Full_names}}</td>
+                  <td>{{otherclasse.Admission_Class}}</td>
+                  <td>{{otherclasse.Parent_Contact}} <br>{{otherclasse.Alternative_contact}} </td>
+                  <td>{{otherclasse.Parent_Email}} <br>{{otherclasse.Alternative_email}}</td>
+                  <td>{{otherclasse.Previous_school}}</td>
+                  <td>{{otherclasse.Created_on}}</td>
+                  <td>
+                    <button class="btn btn-sm btn-info" type="button" name="button">Approved</button>
+                  </td>
+                </tr>
+              {% else %}
+                <tr>
+                  <td>{{otherclasse.id}}</td>
+                  <td>{{otherclasse.Full_names}}</td>
+                  <td>{{otherclasse.Admission_Class}}</td>
+                  <td>{{otherclasse.Parent_Contact}} <br>{{otherclasse.Alternative_contact}} </td>
+                  <td>{{otherclasse.Parent_Email}} <br>{{otherclasse.Alternative_email}}</td>
+                  <td>{{otherclasse.Previous_school}}</td>
+                  <td>{{otherclasse.Created_on}}</td>
+                  <td>
+                    <a class="btn bg-gradient-primary btn-sm mx-1" href="c2_6_app_view/{{otherclasse.id}}"> view </a>
+                    <a class="btn bg-gradient-warning btn-sm mx-1" href="c2_6_app_accept/{{otherclasse.id}}"> Accept </a>
+                  </td>
+                </tr>
+              {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+              <!-- /.card-body -->
+    </div>
+            <!-- /.card -->
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 mt-3">
+    <div class="card">
+      <div class="card-header bg-success">
+        <h3 class="card-title">Class1 Application List</h3>
+        <div class="card-tools">
+          <div class="input-group input-group-sm" style="width: 250px;">
+            <input type="text" name="table_search" class="form-control float-right" id="myc1Input" placeholder="Search">
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-default">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+              <!-- /.card-header -->
+      <div class="card-body table-responsive p-0 bg-light shadow-lg" style="height: 250px;">
+        <table class="table text-nowrap table-hover bg-primary shadow-lg">
+          <thead class="text-light ">
+            <tr class="bg-light">
+              <th>ID</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Previous_school</th>
+              <th>Applied On</th>
+              <th>Option</th>
+            </tr>
+          </thead>
+          <tbody class="bg-light shadow" id="myc1Table">
+            {% for class1 in class1s %}
+              {% if class1.Approved %}
+                <tr class="bg-gray disabled">
+                  <td>{{class1.id}}</td>
+                  <td>{{class1.Full_names}}</td>
+                  <td>{{class1.Parent_Contact}} <br>{{class1.Alternative_contact}} </td>
+                  <td>{{class1.Parent_Email}} <br>{{class1.Alternative_email}}</td>
+                  <td>{{class1.Previous_school}}</td>
+                  <td>{{class1.Created_on}}</td>
+                  <td>
+                  <button type="button" name="button" class="btn btn-sm btn-info">Accepted</button>
+                  </td>
+                </tr>
+              {% else %}
+                <tr>
+                  <td>{{class1.id}}</td>
+                  <td>{{class1.Full_names}}</td>
+                  <td>{{class1.Parent_Contact}} <br>{{class1.Alternative_contact}} </td>
+                  <td>{{class1.Parent_Email}} <br>{{class1.Alternative_email}}</td>
+                  <td>{{class1.Previous_school}}</td>
+                  <td>{{class1.Created_on}}</td>
+                  <td>
+                    <a class="btn bg-gradient-primary btn-sm mx-1" href="c1_app_view/{{class1.id}}"> view </a>
+                    <a class="btn bg-gradient-warning btn-sm mx-1" href="c1_app_accept/{{class1.id}}"> Accept </a>
+                  </td>
+                </tr>
+              {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+              <!-- /.card-body -->
+    </div>
+            <!-- /.card -->
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 mt-3">
+    <div class="card">
+      <div class="card-header bg-warning">
+        <h3 class="card-title">Nursery Application List</h3>
+        <div class="card-tools">
+          <div class="input-group input-group-sm" style="width: 250px;">
+            <input type="text" name="table_search" class="form-control float-right" id="mynInput" placeholder="Search">
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-default">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+              <!-- /.card-header -->
+      <div class="card-body table-responsive p-0 bg-light shadow-lg" style="height: 250px;">
+        <table class="table text-nowrap table-hover bg-primary shadow-lg">
+          <thead class="text-light ">
+            <tr class="bg-light">
+              <th>ID</th>
+              <th>Name</th>
+              <th>Class</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Previous_school</th>
+              <th>Applied On</th>
+              <th>Option</th>
+            </tr>
+          </thead>
+          <tbody class="bg-light shadow" id="mycTable">
+            {% for nurserie in nurseries %}
+              {% if nurserie.Approved %}
+                <tr class="bg-gray disabled">
+                  <td>{{nurserie.id}}</td>
+                  <td>{{nurserie.Full_names}}</td>
+                  <td>{{nurserie.Admission_Class}}</td>
+                  <td>{{nurserie.Parent_Contact}} <br>{{nurserie.Alternative_contact}} </td>
+                  <td>{{nurserie.Parent_Email}} <br>{{nurserie.Alternative_email}}</td>
+                  <td>{{nurserie.Previous_school}}</td>
+                  <td>{{nurserie.Created_on}}</td>
+                  <td>
+                    <button class="btn btn-sm btn-info" type="button" name="button">Approved</button>
+                  </td>
+                </tr>
+              {% else %}
+                <tr>
+                  <td>{{nurserie.id}}</td>
+                  <td>{{nurserie.Full_names}}</td>
+                  <td>{{nurserie.Admission_Class}}</td>
+                  <td>{{nurserie.Parent_Contact}} <br>{{nurserie.Alternative_contact}} </td>
+                  <td>{{nurserie.Parent_Email}} <br>{{nurserie.Alternative_email}}</td>
+                  <td>{{nurserie.Previous_school}}</td>
+                  <td>{{nurserie.Created_on}}</td>
+                  <td>
+                    <a class="btn bg-gradient-primary btn-sm mx-1" href="n_app_view/{{nurserie.id}}"> view </a>
+                    <a class="btn bg-gradient-warning btn-sm mx-1" href="n_app_accept/{{nurserie.id}}"> Accept </a>
+                  </td>
+                </tr>
+              {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+              <!-- /.card-body -->
+    </div>
+            <!-- /.card -->
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 mt-3">
+    <div class="card">
+      <div class="card-header bg-indigo">
+        <h3 class="card-title">Teacher's Application List </h3>
+        <div class="card-tools">
+          <div class="input-group input-group-sm" style="width: 250px;">
+            <input type="text" name="table_search" class="form-control float-right" id="myttInput" placeholder="Search">
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-default">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+              <!-- /.card-header -->
+      <div class="card-body table-responsive p-0 bg-light shadow-lg" style="height: 250px;">
+        <table class="table text-nowrap table-hover bg-primary shadow-lg">
+          <thead class="text-light ">
+            <tr class="bg-light">
+              <th>ID</th>
+              <th>Name</th>
+              <th>Gender</th>
+              <th>Section</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Previous Occupation</th>
+              <th>Applied On</th>
+              <th>Option</th>
+            </tr>
+          </thead>
+          <tbody class="bg-light shadow" id="myttTable">
+            {% for teacher in teachers %}
+              {% if teacher.Approved %}
+                <tr class="bg-gray disabled">
+                  <td>{{teacher.id}}</td>
+                  <td>{{teacher.Full_names}}</td>
+                  <td>{{teacher.Gender}}</td>
+                  <td>{{teacher.Section_of_choice}}</td>
+                  <td>{{teacher.Contact}} <br>{{teacher.Alternative_contact}} </td>
+                  <td>{{teacher.Email}} <br>{{teacher.Alternative_email}}</td>
+                  <td>{{teacher.Previous_occupation}}</td>
+                  <td>{{teacher.Created_on}}</td>
+                  <td>
+                    <button class="btn btn-sm btn-info" type="button" name="button">Approved</button>
+                  </td>
+                </tr>
+              {% else %}
+                <tr>
+                  <td>{{teacher.id}}</td>
+                  <td>{{teacher.Full_names}}</td>
+                  <td>{{teacher.Gender}}</td>
+                  <td>{{teacher.Section_of_choice}}</td>
+                  <td>{{teacher.Contact}} <br>{{teacher.Alternative_contact}} </td>
+                  <td>{{teacher.Email}} <br>{{teacher.Alternative_email}}</td>
+                  <td>{{teacher.Previous_occupation}}</td>
+                  <td>{{teacher.Created_on}}</td>
+                  <td>
+                    <a class="btn bg-gradient-primary btn-sm mx-1" href="t_app_view/{{teacher.id}}"> view </a>
+                    <a class="btn bg-gradient-warning btn-sm mx-1" href="t_app_accept/{{teacher.id}}"> Accept </a>
+                  </td>
+                </tr>
+              {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+              <!-- /.card-body -->
+    </div>
+            <!-- /.card -->
+  </div>
+</div>
+
+
+    <script>
+      // ********************************TO FILTER IN TABLE*************************************
+      $(document).ready(function(){
+        $("#mySInput").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#mySTable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+        $("#myTInput").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#myTTable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+        $("#my1Input").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#my1Table tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+        $("#mycInput").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#mycTable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+        $("#myc1Input").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#myc1Table tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+        $("#mynInput").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#mynTable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+        $("#myttInput").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#myttTable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+    </script>
+{% endblock main_content  %}
